@@ -20,6 +20,9 @@ namespace Launcher {
     public partial class MainWindow : Window {
         public MainWindow() {
             InitializeComponent();
+
+            moving_grid.MouseLeftButtonDown += (s, e) => { DragMove(); };
+            close_btn.MouseLeftButtonUp += (s, e) => { Application.Current.Shutdown(); };
         }
 
         private void get_list() {

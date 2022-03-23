@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Height="340" Width="640"
+        Style="{StaticResource m_window}">
+    <Border Style="{DynamicResource border}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition/>
+                <RowDefinition Height="65"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="PLauncher by Data Name ID" Style="{StaticResource m_title}"/>
+            <Grid x:Name="moving_grid" Background="Transparent"/>
+            <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
+
+            <ListBox Grid.Row="1">
+                <ListBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button Content="Добавить" Margin="0, 0, 15, 0"/>
+                <Button Content="Удалить"/>
+            </StackPanel>
+
+        </Grid>
+    </Border>
 </Window>

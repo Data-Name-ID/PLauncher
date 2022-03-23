@@ -1,4 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="Border" BasedOn="{StaticResource m_border}" x:Key="border">
+        <Setter Property="Background" Value="#F3F3F3"/>
+    </Style>
     
+    <Style TargetType="TextBlock" BasedOn="{StaticResource m_tb}">
+        <Setter Property="Foreground" Value="#1b1b1b"/>
+    </Style>
+
+    <Style TargetType="ListBox" BasedOn="{StaticResource m_listbox}">
+        <Setter Property="Background" Value="#FBFBFB"/>
+        <Setter Property="BorderBrush" Value="#E5E5E5"/>
+    </Style>
+
+    <Style TargetType="Button" BasedOn="{StaticResource m_btn}">
+        <Setter Property="Background" Value="#FEFEFE"/>
+        <Setter Property="BorderBrush" Value="#ECECEC"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#F3F3F3"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
