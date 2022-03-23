@@ -10,31 +10,26 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Launcher {
     /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
+    /// Логика взаимодействия для Program.xaml
     /// </summary>
-    public partial class MainWindow : Window {
-        public MainWindow() {
+    public partial class Program : Window {
+        public Program() {
             InitializeComponent();
         }
 
-        private void get_list() {
+        private void create_ini() {
 
         }
 
-        private void update_list() {
+        private void change_ini() {
 
         }
 
-        private void create_link() {
-
-        }
-
-        private void start_program() {
+        private void validate() {
 
         }
     }
