@@ -18,8 +18,13 @@
         <Setter Property="BorderBrush" Value="#ECECEC"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#F3F3F3"/>
+                <Setter Property="BorderBrush" Value="#C8C8C8"/>
             </Trigger>
         </Style.Triggers>
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource m_tbox}">
+        <Setter Property="Background" Value="#FBFBFB"/>
+        <Setter Property="BorderBrush" Value="#E5E5E5"/>
     </Style>
 </ResourceDictionary>

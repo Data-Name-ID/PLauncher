@@ -5,8 +5,24 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
-        Title="CMessageBox" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Height="300" Width="450"
+        Style="{StaticResource m_window}">
+    <Border Style="{DynamicResource border}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="55*"/>
+                <RowDefinition Height="25*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="title_tb" Style="{StaticResource m_title}" VerticalAlignment="Center"/>
+            <Grid x:Name="moving_grid" Background="Transparent"/>
+            <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
+            
+            <TextBlock Grid.Row="1" x:Name="message_tb" TextWrapping="Wrap"/>
+
+            <StackPanel Grid.Row="2" x:Name="stack_btns" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
+        </Grid>
+    </Border>
 </Window>

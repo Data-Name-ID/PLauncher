@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
-        Height="340" Width="640"
+        Height="340" Width="660"
         Style="{StaticResource m_window}">
     <Border Style="{DynamicResource border}">
         <Grid>
@@ -19,17 +19,11 @@
             <Grid x:Name="moving_grid" Background="Transparent"/>
             <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
 
-            <ListBox Grid.Row="1">
-                <ListBox.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="4"/>
-                    </Style>
-                </ListBox.Resources>
-            </ListBox>
+            <ListBox x:Name="prog_list" Grid.Row="1"/>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Content="Добавить" Margin="0, 0, 15, 0"/>
-                <Button Content="Удалить"/>
+                <Button x:Name="add_btn" Content="Добавить" Margin="0, 0, 15, 0"/>
+                <Button x:Name="delete_btn" Content="Удалить"/>
             </StackPanel>
 
         </Grid>

@@ -5,8 +5,58 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
-        Title="Program" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Height="380" Width="660"
+        Style="{StaticResource m_window}">
+    <Border Style="{DynamicResource border}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock x:Name="title_tb" Style="{StaticResource m_title}"/>
+            <Grid x:Name="moving_grid" Background="Transparent"/>
+            <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Top">
+                <StackPanel.Resources>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Margin" Value="0,0,0,10"/>
+                    </Style>
+                    
+                </StackPanel.Resources>
+                
+                <StackPanel>
+                    <TextBlock Text="Путь к .exe отслеживаемой программы"/>
+                    <Grid Margin="0, 4, 0, 0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="26"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox x:Name="path_tb" Margin="0, 0, 10, 0" />
+                        <Button x:Name="path_btn" Grid.Column="1" Content="..." Width="26" Height="26" VerticalAlignment="Center"/>
+                    </Grid>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Имя"/>
+                    <TextBox x:Name="name_tb"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Службы для запуска/отключения [Указывать через '; ']"/>
+                    <TextBox x:Name="services_tb"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Процессы для завершения [Указывать через '; ']"/>
+                    <TextBox x:Name="processes_tb"/>
+                </StackPanel>
+            </StackPanel>
+
+            <Button x:Name="ok_btn" Grid.Row="2" Content="Готово" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+
+        </Grid>
+    </Border>
 </Window>
