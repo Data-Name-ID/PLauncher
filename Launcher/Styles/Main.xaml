@@ -61,20 +61,11 @@
         <Setter Property="BorderThickness" Value="1.5"/>
         <Setter Property="Padding" Value="15, 10"/>
     </Style>
-
-    <Style TargetType="ListBoxItem">
+    <!--x:Key="m_list_item"-->
+    <Style TargetType="ListBoxItem" x:Key="m_list_item">
         <Setter Property="Margin" Value="0, 0, 0, 3"/>
         <Setter Property="Padding" Value="7, 3"/>
         <Setter Property="BorderThickness" Value="1.2"/>
-
-        <Setter Property="ContextMenu">
-            <Setter.Value>
-                <ContextMenu>
-                    <MenuItem Header="Добавить ВЛ" />
-                    <MenuItem Header="Удалить ВЛ" />
-                </ContextMenu>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style TargetType="Button" x:Key="m_btn">

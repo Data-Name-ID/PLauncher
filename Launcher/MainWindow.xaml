@@ -7,6 +7,38 @@
         mc:Ignorable="d"
         Height="340" Width="660"
         Style="{StaticResource m_window}">
+
+    <Window.Resources>
+        <Image Source="/./Images/Link.png" x:Key="link_icon"/>
+
+        <ContextMenu x:Key="listbox_cm">
+            <MenuItem Header="Запустить" Click="cm_start_program">
+                <MenuItem.Icon>
+                    <Image Source="/./Images/Start.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Добавить на рабочий стол" Click="cm_create_dlink">
+                <MenuItem.Icon>
+                    <Image Source="/./Images/Link.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Добавить в меню пуск" Click="cm_create_slink">
+                <MenuItem.Icon>
+                    <Image Source="/./Images/Link.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Удалить" Click="cm_delete_program">
+                <MenuItem.Icon>
+                    <Image Source="/./Images/Delete.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+        </ContextMenu>
+
+        <Style TargetType="ListBoxItem" BasedOn="{StaticResource m_list_item}" x:Key="m_list_item">
+            <Setter Property="ContextMenu" Value="{StaticResource listbox_cm}"/>
+        </Style>
+    </Window.Resources>
+    
     <Border Style="{DynamicResource border}">
         <Grid>
             <Grid.RowDefinitions>
@@ -19,7 +51,22 @@
             <Grid x:Name="moving_grid" Background="Transparent"/>
             <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
 
-            <ListBox x:Name="prog_list" Grid.Row="1"/>
+            <ListBox x:Name="prog_list" Grid.Row="1" ItemContainerStyle="{StaticResource m_list_item}">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Добавить" Click="cm_add_program">
+                            <MenuItem.Icon>
+                                <Image Source="/./Images/Add.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Обновить" Click="cm_refresh_list">
+                            <MenuItem.Icon>
+                                <Image Source="/./Images/Refresh.png" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button x:Name="add_btn" Content="Добавить" Margin="0, 0, 15, 0"/>

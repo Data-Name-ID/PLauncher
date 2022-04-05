@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using static Launcher.Scripts.Main;
 using Launcher.Scripts;
 using System;
+using System.Threading.Tasks;
 
 namespace Launcher {
     public partial class MainWindow : Window {
@@ -16,9 +17,24 @@ namespace Launcher {
             close_btn.MouseLeftButtonUp += (s, e) => { Application.Current.Shutdown(); };
 
             add_btn.Click += (s, e) => { add_program(); update_list(); };
-            delete_btn.Click += (s, e) => { delete_program(); };
+            delete_btn.Click += (s, e) => { delete_program(prog_list.SelectedItem); };
+            //prog_list.MouseLeftButtonUp += (s, e) => { prog_list.SelectedIndex = -1; };
 
             update_list();
+        }
+
+        private string format_str(string str_1, string str_2) {
+            var result = $"{str_1} - [{str_2}]";
+            if (result.Length > 74)
+                result = result.Substring(0, 72) + "..]";
+
+            return result;
+        }
+
+        private string reformat_str(string str) {
+            var result = str.Split('-')[0].Trim();
+
+            return result;
         }
 
         private List<string> get_list() {
@@ -27,16 +43,10 @@ namespace Launcher {
             Directory.CreateDirectory(inis_path);
             foreach (var file in Directory.GetFiles(inis_path, "*.ini")) {
                 var ini = new IniFile(file);
+                var program_name = Path.GetFileNameWithoutExtension(file);
 
-                var program = Path.GetFileNameWithoutExtension(file);
-
-                if (program != "") {
-                    program += $" - [{ini.Read("Path", "Main")}]";
-                    if (program.Length > 74)
-                        program = program.Substring(0, 72) + "..]";
-
-                    programs.Add(program);
-                }
+                if (program_name != "")
+                    programs.Add(format_str(program_name, ini.Read("Path", "Main")));
             }
 
             return programs;
@@ -47,14 +57,17 @@ namespace Launcher {
         }
 
         private void change_program() {
-            new Program("Изменение программы").Show();
+            new Program("Изменение программы").ShowDialog();
         }
 
-        private void delete_program() {
-            var ini = inis_path + ((string)prog_list.SelectedItem).Split('-')[0].Trim() + ".ini";
-            if (File.Exists(ini)) {
-                File.Delete(ini);
-                update_list();
+        private void delete_program(object item) {
+            if (item != null) {
+                var ini = inis_path + reformat_str((string)item) + ".ini";
+
+                if (File.Exists(ini)) {
+                    File.Delete(ini);
+                    update_list();
+                }
             }
         }
 
@@ -62,18 +75,41 @@ namespace Launcher {
             prog_list.ItemsSource = get_list();
         }
 
-        private void create_slink(object sender, RoutedEventArgs e) {
-
+        private async void cm_start_program(object sender, RoutedEventArgs e) {
+            var name = get_cm_item_name(sender);
+            await start_program(name);
         }
 
-        private void create_dlink(object sender, RoutedEventArgs e) {
-            string name = ((MenuItem)sender).Header.ToString();
-            // <путь_к_файлу>, <путь_к_ярлыку>, <аргументы_командной_строки>, <описание>
-            WLink.Create(Assembly.GetExecutingAssembly().Location, Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + $@"\{name}.lnk", "", "Описание");
+        private void cm_add_program(object sender, RoutedEventArgs e) {
+            add_program();
+            update_list();
         }
 
-        private void start_program() {
-
+        private void cm_refresh_list(object sender, RoutedEventArgs e) {
+            update_list();
         }
+
+        public void cm_create_dlink(object sender, RoutedEventArgs e) {
+            create_link(sender, Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory));
+        }
+
+        private void cm_create_slink(object sender, RoutedEventArgs e) {
+            create_link(sender, Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\Programs");
+        }
+
+        private void cm_delete_program(object sender, RoutedEventArgs e) {
+            delete_program(get_cm_item_name(sender));
+        }
+
+        private string get_cm_item_name(object sender) {
+            return reformat_str(((ListBoxItem)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget).Content.ToString());
+        }
+
+        private void create_link(object sender, string path) {
+            string name = get_cm_item_name(sender);
+            string icon_path = new IniFile(inis_path + name + ".ini").Read("Path", "Main");
+
+            WLink.Create($@"{path}\{name}.lnk", Assembly.GetExecutingAssembly().Location, $"-{name}", $"Запустить программу {name} с помощью PLauncher", icon_path);
+        }        
     }
 }

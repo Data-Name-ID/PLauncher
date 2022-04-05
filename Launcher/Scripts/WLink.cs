@@ -7,14 +7,15 @@ using System.Threading.Tasks;
 
 namespace Launcher.Scripts {
     public static class WLink {
-        public static void Create(string PathToFile, string PathToLink, string Arguments, string Description) {
+        public static void Create(string link_path, string file_path, string arguments, string description, string icon_path) {
             ShellLink.IShellLinkW shlLink = ShellLink.CreateShellLink();
 
-            Marshal.ThrowExceptionForHR(shlLink.SetDescription(Description));
-            Marshal.ThrowExceptionForHR(shlLink.SetPath(PathToFile));
-            Marshal.ThrowExceptionForHR(shlLink.SetArguments(Arguments));
+            Marshal.ThrowExceptionForHR(shlLink.SetDescription(description));
+            Marshal.ThrowExceptionForHR(shlLink.SetPath(file_path));
+            Marshal.ThrowExceptionForHR(shlLink.SetArguments(arguments));
+            Marshal.ThrowExceptionForHR(shlLink.SetIconLocation(icon_path, 0));
 
-            ((System.Runtime.InteropServices.ComTypes.IPersistFile)shlLink).Save(PathToLink, false);
+            ((System.Runtime.InteropServices.ComTypes.IPersistFile)shlLink).Save(link_path, false);
         }
     }
 
