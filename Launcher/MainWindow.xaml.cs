@@ -30,7 +30,10 @@ namespace Launcher {
             close_btn.MouseLeftButtonUp += (s, e) => { Application.Current.Shutdown(); };
 
             add_btn.Click += (s, e) => { add_program(); update_list(); };
-            delete_btn.Click += (s, e) => { delete_program(reformat_str(prog_list.SelectedItem.ToString())); };
+            delete_btn.Click += (s, e) => {
+                if (prog_list.SelectedItem != null)
+                    delete_program(reformat_str(prog_list.SelectedItem.ToString()));
+            };
             prog_list.MouseDoubleClick += (s, e) => { prog_list.SelectedIndex = -1; };
 
             moving_grid.MouseRightButtonUp += (s, e) => { change_theme(); };
