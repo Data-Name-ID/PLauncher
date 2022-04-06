@@ -3,21 +3,22 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
         Height="340" Width="660"
         Style="{StaticResource m_window}"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
-        <Image Source="/./Images/Link.png" x:Key="link_icon"/>
+        <Image Source="/./Images/Start.png" x:Key="start_icon"/>
+        <Image Source="/./Images/Edit.png" x:Key="edit_icon"/>
+        <Image Source="/./Images/Delete.png" x:Key="delete_icon"/>
+
+        <Image Source="/./Images/Add.png" x:Key="add_icon"/>
+        <Image Source="/./Images/Refresh.png" x:Key="refresh_icon"/>
+        <Image Source="/./Images/Folder.png" x:Key="folder_icon"/>
 
         <ContextMenu x:Key="listbox_cm">
-            <MenuItem Header="Запустить" Click="cm_start_program">
-                <MenuItem.Icon>
-                    <Image Source="/./Images/Start.png" />
-                </MenuItem.Icon>
-            </MenuItem>
+            <MenuItem Header="Запустить" Icon="{StaticResource start_icon}" Click="cm_start_program"/>
             <MenuItem Header="Добавить на рабочий стол" Click="cm_create_dlink">
                 <MenuItem.Icon>
                     <Image Source="/./Images/Link.png" />
@@ -28,16 +29,8 @@
                     <Image Source="/./Images/Link.png" />
                 </MenuItem.Icon>
             </MenuItem>
-            <MenuItem Header="Изменить" Click="cm_edit_program">
-                <MenuItem.Icon>
-                    <Image Source="/./Images/Edit.png" />
-                </MenuItem.Icon>
-            </MenuItem>
-            <MenuItem Header="Удалить" Click="cm_delete_program">
-                <MenuItem.Icon>
-                    <Image Source="/./Images/Delete.png" />
-                </MenuItem.Icon>
-            </MenuItem>
+            <MenuItem Header="Изменить" Click="cm_edit_program" Icon="{StaticResource edit_icon}"/>
+            <MenuItem Header="Удалить" Click="cm_delete_program" Icon="{StaticResource delete_icon}"/>
         </ContextMenu>
 
         <Style TargetType="ListBoxItem" BasedOn="{StaticResource m_list_item}" x:Key="m_list_item">
@@ -60,16 +53,9 @@
             <ListBox x:Name="prog_list" Grid.Row="1" ItemContainerStyle="{StaticResource m_list_item}">
                 <ListBox.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="Добавить" Click="cm_add_program">
-                            <MenuItem.Icon>
-                                <Image Source="/./Images/Add.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
-                        <MenuItem Header="Обновить" Click="cm_refresh_list">
-                            <MenuItem.Icon>
-                                <Image Source="/./Images/Refresh.png" />
-                            </MenuItem.Icon>
-                        </MenuItem>
+                        <MenuItem Header="Добавить" Click="cm_add_program" Icon="{StaticResource add_icon}"/>
+                        <MenuItem Header="Обновить" Click="cm_refresh_list" Icon="{StaticResource refresh_icon}"/>
+                        <MenuItem Header="Папка с INI" Click="cm_open_folder" Icon="{StaticResource folder_icon}"/>
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>

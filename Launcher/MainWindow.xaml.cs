@@ -1,6 +1,7 @@
 ﻿using Launcher.Scripts;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Windows;
@@ -12,6 +13,7 @@ namespace Launcher {
     public partial class MainWindow : Window {
 
         public MainWindow() {
+
             // Проверка на наличие аргумента
             // Если присутствует - запускаем программу
             string[] args = Environment.GetCommandLineArgs();
@@ -45,8 +47,8 @@ namespace Launcher {
 
         private string format_str(string str_1, string str_2) {
             var result = $"{str_1} - [{str_2}]";
-            if (result.Length > 73)
-                result = result.Substring(0, 71) + "..]";
+            if (result.Length > 71)
+                result = result.Substring(0, 69) + "..]";
 
             return result;
         }
@@ -104,23 +106,24 @@ namespace Launcher {
             prog_list.ItemsSource = get_list();
         }
 
-        private async void cm_start_program(object sender, RoutedEventArgs e) {
-            var name = get_cm_item_name(sender);
-            await start_program(name);
-        }
 
         private void cm_add_program(object sender, RoutedEventArgs e) {
             add_program();
             update_list();
         }
 
-        private void cm_edit_program(object sender, RoutedEventArgs e) {
-            change_program(get_cm_item_name(sender));
+        private void cm_refresh_list(object sender, RoutedEventArgs e) {
             update_list();
         }
 
-        private void cm_refresh_list(object sender, RoutedEventArgs e) {
-            update_list();
+        private void cm_open_folder(object sender, RoutedEventArgs e) {
+            Process.Start(inis_path);
+        }
+
+
+        private async void cm_start_program(object sender, RoutedEventArgs e) {
+            var name = get_cm_item_name(sender);
+            await start_program(name);
         }
 
         public void cm_create_dlink(object sender, RoutedEventArgs e) {
@@ -131,9 +134,15 @@ namespace Launcher {
             create_link(sender, start_path);
         }
 
+        private void cm_edit_program(object sender, RoutedEventArgs e) {
+            change_program(get_cm_item_name(sender));
+            update_list();
+        }
+
         private void cm_delete_program(object sender, RoutedEventArgs e) {
             delete_program(get_cm_item_name(sender));
         }
+
 
         private string get_cm_item_name(object sender) {
             return reformat_str(((ListBoxItem)((ContextMenu)((MenuItem)sender).Parent).PlacementTarget).Content.ToString());

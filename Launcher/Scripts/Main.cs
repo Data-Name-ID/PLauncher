@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Launcher.Scripts {
     public partial class Main {
+
         public static string inis_path = AppDomain.CurrentDomain.BaseDirectory + @"Data\";
         public static string settings = AppDomain.CurrentDomain.BaseDirectory + @"Data\Settings";
 

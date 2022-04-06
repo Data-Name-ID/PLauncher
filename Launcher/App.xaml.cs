@@ -6,6 +6,7 @@ using static Launcher.Styles.Theme;
 
 namespace Launcher {
     public partial class App : Application {
+
         void On_Startup(object sender, StartupEventArgs e) {
             if (!File.Exists(settings))
                 change_theme("Dark");

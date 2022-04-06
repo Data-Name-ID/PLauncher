@@ -3,9 +3,11 @@ using System.Windows.Controls;
 
 namespace Launcher {
     public partial class CMessageBox : Window {
+
         private static string result;
 
         public CMessageBox() {
+
             InitializeComponent();
 
             moving_grid.MouseLeftButtonDown += (s, e) => { DragMove(); };
@@ -24,11 +26,11 @@ namespace Launcher {
                     Margin = new Thickness(15, 0, 0, 0)
                 };
                 btn.Click += (s, e) => { result = ((Button)s).Content.ToString(); mb.Close(); };
+
                 mb.stack_btns.Children.Add(btn);
             }
 
             result = buttons[default_btn];
-
             mb.ShowDialog();
 
             return result;
