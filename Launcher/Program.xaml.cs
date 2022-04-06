@@ -1,12 +1,15 @@
-﻿using Microsoft.Win32;
+﻿using Launcher.Scripts;
+using Microsoft.Win32;
 using System.IO;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
 using static Launcher.Scripts.Main;
 
 namespace Launcher {
     public partial class Program : Window {
-        public Program(string title) {
+        private string _name;
+        public Program(string title, string name = null) {
             InitializeComponent();
 
             moving_grid.MouseLeftButtonDown += (s, e) => { DragMove(); };
@@ -20,6 +23,16 @@ namespace Launcher {
                     Close();
                 }
             };
+
+            if (name != null) {
+                var ini = new IniFile($"{inis_path + name}.ini");
+                name_tb.Text = name;
+                path_tb.Text = ini.Read("Path", "Main");
+                services_tb.Text = ini.Read("Services", "Main");
+                processes_tb.Text = ini.Read("Processes", "Main");
+
+                _name = name;
+            }
         }
 
         private void get_path() {
@@ -35,6 +48,25 @@ namespace Launcher {
         }
 
         private void change_ini() {
+            if (_name != null) {
+                if (_name != name_tb.Text)
+                    File.Move($"{inis_path + _name}.ini", $"{inis_path + name_tb.Text}.ini");
+
+                if (File.Exists($@"{desktop_path + _name}.lnk") && CMessageBox.Show("На рабочем столе есть ярлык на запуск этой программы, вы хотите актуализировать его в связи с изменениями?", "Предупреждение", new string[] { "Да", "Нет" }, 1) != "Нет") {
+                    File.Delete($@"{desktop_path + _name}.lnk");
+
+                    string icon_path = new IniFile(inis_path + name_tb.Text + ".ini").Read("Path", "Main");
+                    WLink.Create($@"{desktop_path + name_tb.Text}.lnk", Assembly.GetExecutingAssembly().Location, $"-{name_tb.Text}", $"Запустить программу {name_tb.Text} с помощью PLauncher", icon_path);
+                }
+
+                if (File.Exists($@"{start_path + _name}.lnk") && CMessageBox.Show("В меню пуск есть ярлык на запуск этой программы, вы хотите актуализировать его в связи с изменениями?", "Предупреждение", new string[] { "Да", "Нет" }, 1) != "Нет") {
+                    File.Delete($@"{start_path + _name}.lnk");
+
+                    string icon_path = new IniFile(inis_path + name_tb.Text + ".ini").Read("Path", "Main");
+                    WLink.Create($@"{start_path + name_tb.Text}.lnk", Assembly.GetExecutingAssembly().Location, $"-{name_tb.Text}", $"Запустить программу {name_tb.Text} с помощью PLauncher", icon_path);
+                }
+            }
+
             var ini = new IniFile($"{inis_path + name_tb.Text}.ini");
             ini.Write("Path", path_tb.Text, "Main");
             ini.Write("Services", services_tb.Text, "Main");
@@ -47,8 +79,14 @@ namespace Launcher {
                 return false;
             }
 
-            if (!new Regex("[^\\/:*?\"<>|]").Match(name_tb.Text).Success) {
-                CMessageBox.Show("В имени содержатся недопустимые символы\n\\ / : * ? \" < > |", "Ошибка", new string[] { "Хорошо" });
+            foreach (var s in "\\/:*?\"<>|")
+                if (name_tb.Text.Contains(s.ToString())) {
+                    CMessageBox.Show("В имени содержатся недопустимые символы\n\\ / : * ? \" < > |", "Ошибка", new string[] { "Хорошо" });
+                    return false;
+                }
+
+            if (name_tb.Text.Length > 70) {
+                CMessageBox.Show("Слишком длинное имя! (> 70 символов)", "Ошибка", new string[] { "Хорошо" });
                 return false;
             }
 

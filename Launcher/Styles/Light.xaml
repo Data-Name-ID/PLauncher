@@ -8,6 +8,10 @@
         <Setter Property="Foreground" Value="#1b1b1b"/>
     </Style>
 
+    <Style TargetType="TextBlock" BasedOn="{StaticResource m_title}" x:Key="title">
+        <Setter Property="Foreground" Value="#1b1b1b"/>
+    </Style>
+
     <Style TargetType="ListBox" BasedOn="{StaticResource m_listbox}">
         <Setter Property="Background" Value="#FBFBFB"/>
         <Setter Property="BorderBrush" Value="#E5E5E5"/>
@@ -26,5 +30,11 @@
     <Style TargetType="TextBox" BasedOn="{StaticResource m_tbox}">
         <Setter Property="Background" Value="#FBFBFB"/>
         <Setter Property="BorderBrush" Value="#E5E5E5"/>
+        <Setter Property="Foreground" Value="#1b1b1b"/>
+    </Style>
+
+    <Style TargetType="ContextMenu" BasedOn="{StaticResource m_context_menu}">
+        <Setter Property="Background" Value="#F3F3F3"/>
+        <Setter Property="BorderBrush" Value="#C8C8C8"/>
     </Style>
 </ResourceDictionary>

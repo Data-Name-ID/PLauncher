@@ -61,7 +61,7 @@
         <Setter Property="BorderThickness" Value="1.5"/>
         <Setter Property="Padding" Value="15, 10"/>
     </Style>
-    <!--x:Key="m_list_item"-->
+    
     <Style TargetType="ListBoxItem" x:Key="m_list_item">
         <Setter Property="Margin" Value="0, 0, 0, 3"/>
         <Setter Property="Padding" Value="7, 3"/>
@@ -91,5 +91,17 @@
         <Setter Property="FontSize" Value="12"/>
         <Setter Property="FontWeight" Value="Medium"/>
         <Setter Property="BorderThickness" Value="1.5"/>
+    </Style>
+    
+    <Style TargetType="ContextMenu" x:Key="m_context_menu">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ContextMenu}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="4">
+                        <StackPanel IsItemsHost="True" Margin="5, 5"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

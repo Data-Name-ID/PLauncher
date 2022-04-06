@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
         Height="380" Width="660"
-        Style="{StaticResource m_window}">
+        Style="{StaticResource m_window}"
+        WindowStartupLocation="CenterScreen">
     <Border Style="{DynamicResource border}">
         <Grid>
             <Grid.RowDefinitions>
@@ -15,7 +16,7 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <TextBlock x:Name="title_tb" Style="{StaticResource m_title}"/>
+            <TextBlock x:Name="title_tb" Style="{DynamicResource title}"/>
             <Grid x:Name="moving_grid" Background="Transparent"/>
             <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
 

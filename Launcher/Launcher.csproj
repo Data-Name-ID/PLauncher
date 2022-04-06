@@ -65,6 +65,7 @@
     <Compile Include="Scripts\IniFile.cs" />
     <Compile Include="Scripts\Main.cs" />
     <Compile Include="Scripts\WLink.cs" />
+    <Compile Include="Styles\Theme.cs" />
     <Page Include="CMessageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +151,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\Refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Edit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

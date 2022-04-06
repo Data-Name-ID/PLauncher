@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 namespace Launcher.Scripts {
     public partial class Main {
         public static string inis_path = AppDomain.CurrentDomain.BaseDirectory + @"Data\";
+        public static string settings = AppDomain.CurrentDomain.BaseDirectory + @"Data\Settings";
+
+        public static string desktop_path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\";
+        public static string start_path = Environment.GetFolderPath(Environment.SpecialFolder.CommonStartMenu) + @"\Programs\";
 
         public static Task start_program(string name) {
             return Task.Run(() => {

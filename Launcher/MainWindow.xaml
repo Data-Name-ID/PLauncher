@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Launcher"
         mc:Ignorable="d"
         Height="340" Width="660"
-        Style="{StaticResource m_window}">
+        Style="{StaticResource m_window}"
+        WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
         <Image Source="/./Images/Link.png" x:Key="link_icon"/>
@@ -25,6 +26,11 @@
             <MenuItem Header="Добавить в меню пуск" Click="cm_create_slink">
                 <MenuItem.Icon>
                     <Image Source="/./Images/Link.png" />
+                </MenuItem.Icon>
+            </MenuItem>
+            <MenuItem Header="Изменить" Click="cm_edit_program">
+                <MenuItem.Icon>
+                    <Image Source="/./Images/Edit.png" />
                 </MenuItem.Icon>
             </MenuItem>
             <MenuItem Header="Удалить" Click="cm_delete_program">
@@ -47,7 +53,7 @@
                 <RowDefinition Height="65"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Text="PLauncher by Data Name ID" Style="{StaticResource m_title}"/>
+            <TextBlock x:Name="title_tb" Text="PLauncher by Data Name ID" Style="{DynamicResource title}"/>
             <Grid x:Name="moving_grid" Background="Transparent"/>
             <Label x:Name="close_btn" Style="{StaticResource m_close}"/>
 
