@@ -100,7 +100,7 @@ namespace Launcher {
                 File.Delete($@"{path + old_name}.lnk");
 
                 string icon_path = new IniFile(inis_path + name_tb.Text + ".ini").Read("Path", "Main");
-                WLink.Create($@"{path + name_tb.Text}.lnk", Assembly.GetExecutingAssembly().Location, $"-{name_tb.Text}", $"Запустить программу {name_tb.Text} с помощью PLauncher", icon_path);
+                WLink.Create($@"{path + name_tb.Text}.lnk", Assembly.GetExecutingAssembly().Location, $"-\"{name_tb.Text}\"", $"Запустить программу {name_tb.Text} с помощью PLauncher", icon_path);
             }
         }
     }

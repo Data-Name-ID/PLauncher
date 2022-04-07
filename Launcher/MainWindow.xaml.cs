@@ -155,7 +155,7 @@ namespace Launcher {
             string name = get_cm_item_name(sender);
             string icon_path = new IniFile(inis_path + name + ".ini").Read("Path", "Main");
 
-            WLink.Create($@"{path}\{name}.lnk", Assembly.GetExecutingAssembly().Location, $"-{name}", $"Запустить программу {name} с помощью PLauncher", icon_path);
+            WLink.Create($@"{path}\{name}.lnk", Assembly.GetExecutingAssembly().Location, $"-\"{name}\"", $"Запустить программу {name} с помощью PLauncher", icon_path);
         }
     }
 }
