@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Management;
 using System.Threading.Tasks;
 
 namespace Launcher.Scripts {
@@ -25,10 +26,16 @@ namespace Launcher.Scripts {
                     cmd($"sc start \"{service.Trim()}\"");
                 }
 
-                Process.Start(new ProcessStartInfo {
+                var main_process = Process.Start(new ProcessStartInfo {
                     FileName = path,
                     WorkingDirectory = Path.GetDirectoryName(path)
-                }).WaitForExit();
+                });
+
+                main_process.WaitForExit();
+
+                var mos = new ManagementObjectSearcher(String.Format("Select * From Win32_Process Where ParentProcessID={0}", main_process.Id));
+                foreach (ManagementObject mo in mos.Get())
+                    Process.GetProcessById(Convert.ToInt32(mo["ProcessID"])).WaitForExit();
 
                 foreach (var processe in processes.Split(';')) {
                     cmd($"taskkill /f /im \"{processe.Trim()}\"");
